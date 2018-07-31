@@ -1,3 +1,76 @@
-<p>
-  create-employee works!
-</p>
+<form #employeeform ="ngForm" (ngSubmit)="saveEmployee(employeeform)">
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="pnel-title">Create Employee</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="nombrecompleto">Nombre Completo</label>
+        <input id="nombrecompleto" name="fn" [(ngModel)]="nombrecompleto" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+          <label for="correo">Correo</label>
+          <input id="correo" name="correo" [(ngModel)]="correo" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+          <label for="telefono">Numero de Telefono</label>
+          <input id="telefono" name="telefono" [(ngModel)]="telefono" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+          <label >Conacto de preferencia</label>
+          <div class="form-control">
+            <label class="radio-inline">
+              <input type="radio" value="Telefono" name="contactPrefer" [(ngModel)]="contactPrefer">
+              Telefono
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value="Correo" name="contactPrefer" [(ngModel)]="contactPrefer">
+                Correo
+              </label>
+          </div>
+      </div>
+      <div class="form-group">
+          <label >Genero</label>
+          <div class="form-control">
+            <label class="radio-inline">
+              <input type="radio" value="Masculino" name="gender" [(ngModel)]="gender">
+              Masculino
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value="Femenino" name="gender" [(ngModel)]="gender">
+                Femenino
+              </label>
+          </div>
+      </div>
+
+      <div class="form-group">
+          
+          <div class="form-control">
+            <label class="checkbox-inline">
+              <input type="checkbox"  name="isActive" [(ngModel)]="isActive">
+              Is Active
+            </label>
+          </div>
+      </div>
+
+      <div class="form-group">
+            <label for="departamento">Departamento</label>
+            <select class="form-control" id="departamento" name="departamento" [(ngModel)] ="dept">
+              <option *ngFor="let dept of departments" [value]="dept.id">
+              {{dept.name}}
+            </option>
+            </select>
+      </div>
+
+      <div class="form-group">
+          <label for="dateOfBirth">Fecha de Nacimiento</label>
+          <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" bsDatepicker type="date" class="form-control">
+      </div>
+      
+    </div>
+    <div class="panel-footer">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</div>
+</form>
+Datos Generados por el form en angular: {{ employeeform.value | json }} 

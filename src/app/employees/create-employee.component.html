@@ -1,14 +1,20 @@
-<form #employeeform ="ngForm" (ngSubmit)="saveEmployee(employeeform)">
+<form #employeeform ="ngForm" ngNativeValidate (ngSubmit)="saveEmployee(employeeform)">
 <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="pnel-title">Create Employee</h3>
     </div>
     <div class="panel-body">
-      <div class="form-group">
-        <label for="nombrecompleto">Nombre Completo</label>
-        <input id="nombrecompleto" name="fn" [(ngModel)]="nombrecompleto" type="text" class="form-control">
+
+      <!--Campo del formulario ya validado-->
+      <div class="form-group" [class.has-error]="nombrecompletocontrol.invalid && nombrecompletocontrol.touched" [class.has-success]="nombrecompletocontrol.valid">
+        <label for="nombrecompleto" class="control-label">Nombre Completo</label>
+        <input id="nombrecompleto" required name="fn" [(ngModel)]="nombrecompleto" type="text" class="form-control" #nombrecompletocontrol="ngModel">
+       <!--mensaje que aparece abajo del form-->
+        <span class="help-block" *ngIf="nombrecompletocontrol.invalid && nombrecompletocontrol.touched"> El nombre completo es requerido</span>
       </div>
-      <div class="form-group">
+      <!---->
+
+      <div class="form-group" >
           <label for="correo">Correo</label>
           <input id="correo" name="correo" [(ngModel)]="correo" type="text" class="form-control">
       </div>
@@ -61,16 +67,29 @@
             </option>
             </select>
       </div>
-
-      <div class="form-group">
+      <div class="row">
+      <div class="form-group col-md-5">
           <label for="dateOfBirth">Fecha de Nacimiento</label>
-          <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" bsDatepicker type="date" class="form-control">
+          <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" bsDatepicker type="text" class="form-control">
       </div>
+    </div>
       
+      <div class="form-group">
+        <label for="foto">Fotografia</label>
+        <input id="foto" name="foto" [(ngModel)]="foto" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <button  type="button" (click)="previewFoto()" class="btn btn-primary">{{ fotoview? "Hide" :"Show"}} Preview</button>
+    </div>
+    <div class="form-group">
+      <img [src]="foto" height="200" width="200" *ngIf="fotoview" />
+    </div>
+
     </div>
     <div class="panel-footer">
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit" class="btn btn-primary" [disabled]="employeeform.invalid">Save</button>
     </div>
+    
 </div>
 </form>
 Datos Generados por el form en angular: {{ employeeform.value | json }} 
